@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="10 seconds">
+
+    <!-- Переопределим стандартные настройки системы логгирования.-->
+    <include resource="logger/default/defaults-spring.xml"/>
+
+
+    <!--Профиль по умолчанию, вывод сообщений только в консоль.-->
+    <springProfile name="default">
+
+        <include resource="logger/console/console-appender-spring.xml"/>
+
+        <root level="TRACE">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+    </springProfile>
+
+
+   <!--Данный профиль предназначен для приложения, которое выпускается
+    в производство (production)-->
+    <springProfile name="prod">
+
+        <!--  настройки аппендера для текущего профиля в консоль-->
+        <include resource="logger/console/console-appender-spring.xml"/>
+
+        <!--  настройки аппендера для текущего профиля в файл-->
+        <include resource="logger/production/logback-appender-production-spring.xml"/>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+        <root level="INFO">
+            <appender-ref ref="FILE-ROLLING"/>
+        </root>
+
+        <!--Логгирование всего проекта-->
+        <logger name="${logging.var.app}" level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <!--Логгирование всего проекта-->
+        <logger name="${logging.var.app}" level="INFO">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+    </springProfile>
+
+
+    <!--Профиль по умолчанию, вывод сообщений только в консоль.
+        Кроме того, если вы хотите, чтобы какой-либо logger регистрировался
+        только в своем собственном приложении,
+         вы должны использовать атрибут additivity="false" на logger,
+          иначе logger будет регистрироваться как в корневых приложениях,
+          так и в приложениях, зависящих от данного логгрера (появятся дублирующие сообщения
+          в логах)
+
+    -->
+    <springProfile name="dev">
+
+        <!--  настройки аппендера для текущего профиля в консоль-->
+        <include resource="logger/console/console-appender-spring.xml"/>
+
+        <!--  настройки аппендера для текущего профиля в файл-->
+        <include resource="logger/production/logback-appender-production-spring.xml"/>
+
+
+      <!--  Указываем пакеты, на уровне которых,  будут отлавливатьcя сообщения логгеров и
+      публиковаться в консоль-->
+
+        <logger name="ch.qos.logback" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.springframework.transaction.interceptor" level="TRACE" >
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.springframework.web" level="DEBUG" additivity="false" >
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.springframework.data" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+            <logger name="org.springframework.data.jpa" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+
+        <logger name="org.hibernate" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.hibernate.validator" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.hibernate.sql" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <logger name="org.springframework.jdbc.core.PreparedStatementCreator" level="TRACE" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+
+        <!--Логгирование всего проекта-->
+        <logger name="${logging.var.app}" level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <!--  Указываем пакеты, на уровне которых,  будут отлавливатьcя сообщения логгеров и
+             публиковаться в файл-->
+
+        <logger name="ch.qos.logback" level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+
+        <!--Логгирование в файл-->
+
+        <logger name="org.springframework.web" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.springframework.data" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.springframework.data.jpa" level="DEBUG" additivity="false" >
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+
+        <logger name="org.hibernate" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.hibernate.validator" level="WARN">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.hibernate.sql" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="TRACE" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+        <logger name="org.springframework.jdbc.core.PreparedStatementCreator" level="TRACE" additivity="false">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+         <!--Логгирование всего проекта-->
+        <logger name="${logging.var.app}" level="DEBUG">
+            <appender-ref ref="FILE-ROLLING"/>
+        </logger>
+
+    </springProfile>
+
+</configuration>

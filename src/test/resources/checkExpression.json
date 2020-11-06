@@ -1,0 +1,67 @@
+{
+  "id" : "238490238429038429jcfswdcsdgsdvfsd",
+  "codeCheck" : "SD.010.001.04.1",
+  "errorDescription": "Элемент «Номер документа» содержит недопустимое значение.",
+  "typeCheck": "Ошибка",
+  "isActive" : "TRUE",
+  "isRequired" : "TRUE",
+  "dateStart" : "2020-05-07T10:58:58",
+  "dateEnd" : "2047-05-07T10:58:58",
+  "dateCreate" : "2020-05-07T10:58:58",
+  "dateEdit" : "2020-06-07T10:58:58",
+  "msgMessage": "",
+  "pathXml": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
+  "blockRules": [
+    {
+      "operator" : "->",
+      "if" : {
+        "operator": "xmlEqual",
+        "element": "stat:Stat_CU/stat:CustomsProcedure",
+        "values": ["ИМ"]
+      },
+      "then" : {
+        "operator": "checkAll",
+        "checks" : [
+          {
+            "operator" : "check",
+            "errorCode" : "ESD.010.001.04.1",
+            "isValid" : {
+              "operator": "->",
+              "if" : {
+                "operator": "xmlEqual",
+                "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
+                "values": ["BY"]
+              },
+              "then" : {
+                "operator": "xmlIn",
+                "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
+                "values": ["RU","KZ","BY","AM","KG"]
+              }
+            }
+          },
+          {
+            "operator" : "check",
+            "errorCode" : "ESD.010.001.04.2",
+            "operator": "->",
+            "if" : {
+              "operator" : "not",
+              "child" : {
+                "operator": "xmlIn",
+                "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
+                "values": ["RU","KZ","BY","AM","KG"]
+              }
+            },
+            "then" : {
+              "operator" : "not",
+              "child" : {
+                "operator": "xmlEqual",
+                "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
+                "values": ["BY"]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
