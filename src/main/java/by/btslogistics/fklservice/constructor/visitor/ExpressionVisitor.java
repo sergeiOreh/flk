@@ -6,27 +6,26 @@ import by.btslogistics.fklservice.dao.model.flk.model.flkresult.FlkResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlkCheckExpressionVisitorImpl implements FlkCheckExpressionVisitor<Boolean> {
+public class ExpressionVisitor implements Visitor<Boolean> {
 
     private SdXml xml;
     List<FlkResult> results = new ArrayList<>();
 
-    public FlkCheckExpressionVisitorImpl(SdXml xml) {
+    public ExpressionVisitor(SdXml xml) {
         this.xml = xml;
     }
 
-
     @Override
-    public Boolean visitRoot(RootFlkCheckOperator<Boolean> root) {
-        for (FlkCheckOperator<Boolean> child : root.childs()) {
+    public Boolean process(RootOperator<Boolean> root) {
+        for (Operator<Boolean> child : root.children()) {
             child.accept(this);
         }
         return true;
     }
 
     @Override
-    public Boolean visitAnd(AndFlkCheckOperator<Boolean> and) {
-        for (FlkCheckOperator<Boolean> child : and.children()) {
+    public Boolean process(AndOperator<Boolean> and) {
+        for (Operator<Boolean> child : and.children()) {
             if (!child.accept(this)) {
                 return false;
             }
@@ -35,7 +34,7 @@ public class FlkCheckExpressionVisitorImpl implements FlkCheckExpressionVisitor<
     }
 
     @Override
-    public Boolean visitIfThen(IfThenFlkCheckOperator<Boolean> ifThen) {
+    public Boolean process(IfThenOperator<Boolean> ifThen) {
         if (ifThen.ifOperator().accept(this)) {
             return ifThen.thenOperator().accept(this);
         }
@@ -43,13 +42,13 @@ public class FlkCheckExpressionVisitorImpl implements FlkCheckExpressionVisitor<
     }
 
     @Override
-    public Boolean visitNot(NotFlkCheckOperator<Boolean> not) {
+    public Boolean process(NotOperator<Boolean> not) {
         return !not.operator().accept(this);
     }
 
     @Override
-    public Boolean visitOr(OrFlkCheckOperator<Boolean> or) {
-        for (FlkCheckOperator<Boolean> child : or.children()) {
+    public Boolean process(OrOperator<Boolean> or) {
+        for (Operator<Boolean> child : or.children()) {
             if (child.accept(this)) {
                 return true;
             }
@@ -58,7 +57,7 @@ public class FlkCheckExpressionVisitorImpl implements FlkCheckExpressionVisitor<
     }
 
     @Override
-    public Boolean visitXmlEqual(XmlEqualFlkCheckOperator<Boolean> xmlEqual) {
+    public Boolean process(EqualOperator<Boolean> xmlEqual) {
         String pathToElement = xmlEqual.pathToElement();
         String value = xml.getValue(pathToElement);
         return value.equals(xmlEqual.valueToCompare());

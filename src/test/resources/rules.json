@@ -1,0 +1,34 @@
+{
+  "id": "238490238429038429jcfswdcsdgsdvfsd",
+  "codeCheck": "SD.010.001.04.1",
+  "errorDescription": "Элемент «Номер документа» содержит недопустимое значение.",
+  "typeCheck": "Ошибка",
+  "isActive": "TRUE",
+  "isRequired": "TRUE",
+  "dateStart": "2020-05-07T10:58:58",
+  "dateEnd": "2047-05-07T10:58:58",
+  "dateCreate": "2020-05-07T10:58:58",
+  "dateEdit": "2020-06-07T10:58:58",
+  "msgMessage": "",
+  "pathElement": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
+  "blockRules": [
+    {
+      "id": 1,
+      "name": "equal",
+      "element": "stat:Stat_CU/stat:CustomsProcedure",
+      "value": "ИМ"
+    },
+    {
+      "id": 2,
+      "name": "xmlIn",
+      "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
+      "values": ["RU", "KZ", "BY", "AM", "KG"]
+    },
+    {
+      "id": 3,
+      "name": "notEqual",
+      "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
+      "value": "BY"
+    }
+  ]
+}

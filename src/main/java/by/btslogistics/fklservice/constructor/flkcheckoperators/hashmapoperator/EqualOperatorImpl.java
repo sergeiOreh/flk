@@ -1,17 +1,17 @@
 package by.btslogistics.fklservice.constructor.flkcheckoperators.hashmapoperator;
 
-import by.btslogistics.fklservice.constructor.flkcheckoperators.XmlEqualFlkCheckOperator;
+import by.btslogistics.fklservice.constructor.flkcheckoperators.EqualOperator;
 import by.btslogistics.fklservice.constructor.flkcheckoperators.operatorfactory.OperatorFactory;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class HMXmlEqualOperator<T> implements XmlEqualFlkCheckOperator {
+public class EqualOperatorImpl<T> implements EqualOperator {
 
     private OperatorFactory<T> operatorFactory;
     private HashMap<String, Object> operator;
 
-    public HMXmlEqualOperator(OperatorFactory<T> operatorFactory, HashMap<String,Object> operator) {
+    public EqualOperatorImpl(OperatorFactory<T> operatorFactory, HashMap<String,Object> operator) {
         this.operatorFactory = operatorFactory;
         this.operator = operator;
     }

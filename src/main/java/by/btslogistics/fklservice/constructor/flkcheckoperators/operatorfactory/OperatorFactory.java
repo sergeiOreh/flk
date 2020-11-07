@@ -1,7 +1,7 @@
 package by.btslogistics.fklservice.constructor.flkcheckoperators.operatorfactory;
 
-import by.btslogistics.fklservice.constructor.flkcheckoperators.FlkCheckOperator;
+import by.btslogistics.fklservice.constructor.flkcheckoperators.Operator;
 
 public interface OperatorFactory<T> {
-    FlkCheckOperator<T> create(String operatorName, Object context);
+    Operator<T> create(String operatorName, Object context);
 }

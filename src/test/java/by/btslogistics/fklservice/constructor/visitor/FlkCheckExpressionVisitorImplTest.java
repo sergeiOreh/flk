@@ -1,7 +1,7 @@
 package by.btslogistics.fklservice.constructor.visitor;
 
-import by.btslogistics.fklservice.constructor.flkcheckoperators.RootFlkCheckOperator;
-import by.btslogistics.fklservice.constructor.flkcheckoperators.hashmapoperator.HMRootOperator;
+import by.btslogistics.fklservice.constructor.flkcheckoperators.RootOperator;
+import by.btslogistics.fklservice.constructor.flkcheckoperators.hashmapoperator.RootOperatorImpl;
 import by.btslogistics.fklservice.constructor.flkcheckoperators.operatorfactory.HMOperatorFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
@@ -27,10 +27,10 @@ class FlkCheckExpressionVisitorImplTest {
     void shouldVisitRootAndIfThenOperator() throws IOException {
         Mockito.when(xml.getValue(ArgumentMatchers.any())).thenReturn("ЭК");
         List<Object> blockRules = loadBlockRules();
-        RootFlkCheckOperator<Boolean> root = new HMRootOperator<>(factory, blockRules);
+        RootOperator<Boolean> root = new RootOperatorImpl<>(factory, blockRules);
 
-        FlkCheckExpressionVisitorImpl visitor = new FlkCheckExpressionVisitorImpl(xml);
-        Boolean isValid = visitor.visitRoot(root);
+        ExpressionVisitor visitor = new ExpressionVisitor(xml);
+        Boolean isValid = visitor.process(root);
         Assertions.assertThat(isValid).isTrue();
     }
 
