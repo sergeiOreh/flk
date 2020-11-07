@@ -14,19 +14,19 @@
   "blockRules": [
     {
       "id": 1,
-      "name": "equal",
+      "method": "equal",
       "element": "stat:Stat_CU/stat:CustomsProcedure",
       "value": "ИМ"
     },
     {
       "id": 2,
-      "name": "xmlIn",
+      "method": "xmlIn",
       "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
       "values": ["RU", "KZ", "BY", "AM", "KG"]
     },
     {
       "id": 3,
-      "name": "notEqual",
+      "method": "notEqual",
       "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DestinationCountry/stat:DestinationCountryCode",
       "value": "BY"
     }

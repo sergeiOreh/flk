@@ -31,19 +31,11 @@
           "KG"
         ]
       },
-      : {
-        "operator": "not",
-        "child": {
-          "operator": "xmlEqual",
-          "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
-          "values": [
-            "BY"
-          ]
-        }
+      "not": {
+        "operator": "equal",
+        "element": "stat:Stat_CU/stat:Stat_CUGoods/stat:DispatchCountry/stat:DispatchCountryCode",
+        "value": "BY"
       }
     }
   ]
-}
-}
-]
 }
