@@ -17,6 +17,7 @@ public class ArgumentResolversConfig implements WebMvcConfigurer {
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new SpecificationArgumentResolver());
         argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
+
     }
 
 }
